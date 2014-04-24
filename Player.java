@@ -1,4 +1,3 @@
-
 import java.util.Vector;
 
 /*
@@ -15,6 +14,8 @@ public class Player {
     private Character_Card Role;
     private String Status;
     private Vector<Card> CardsOnHand;
+    private int Turn;
+    private int Score;
     
     public Player(int i, String S)
     {
@@ -26,6 +27,14 @@ public class Player {
     public void setStatus(String S)
     {
         Status = S;
+    }
+    
+    public void setTurn(int t){
+        Turn = t
+    }
+    
+    public void setScore(int s){
+        Score = s;
     }
     
     public void drawCard(Card c)
