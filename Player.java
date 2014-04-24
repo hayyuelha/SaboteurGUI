@@ -30,7 +30,7 @@ public class Player {
     }
     
     public void setTurn(int t){
-        Turn = t
+        Turn = t;
     }
     
     public void setScore(int s){
