@@ -56,6 +56,10 @@ class Path_Card extends Card {
         return bottom;
     }
     
+    public char getCenter(){
+        return center;
+    }
+    
     public boolean canBePlacedRightOf(Path_Card C){
         if((this.left=='1' && C.getRight()=='1')||(this.left=='0' && C.getRight()=='0') ){
             return true;
@@ -90,6 +94,10 @@ class Path_Card extends Card {
         else {
             return false;
         }
+    }
+    
+    public boolean CompareCard(Path_Card C){
+        return ((this.top==C.getTop())&&(this.bottom==C.getBottom())&&(this.right==C.getRight())&&(this.left==C.getLeft())&&(this.center==C.getCenter())&&(this.id==C.getID()));
     }
 }
 
