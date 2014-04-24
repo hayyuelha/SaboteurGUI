@@ -16,7 +16,7 @@ public class Deck {
     private int NumberOfAvailableCard;
     
     public Deck(){
-        PileOfCard = new Stack<Card>();
+        PileOfCard = new Stack<>();
         
         for (int i=1; i<=4; i++)
         {
