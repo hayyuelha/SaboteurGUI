@@ -1,3 +1,4 @@
+
 import java.util.Collections;
 import java.util.Stack;
 
@@ -16,6 +17,10 @@ public class Deck {
     private int NumberOfAvailableCard;
     
     public Deck(){
+        PileOfCard = new Stack<>();
+        NumberOfAvailableCard = 0;
+    }
+    public void fillDeck(){
         PileOfCard = new Stack<>();
         
         for (int i=1; i<=4; i++)
@@ -84,5 +89,4 @@ public class Deck {
         PileOfCard.push(C);
         NumberOfAvailableCard++;
     }
-    
 }
