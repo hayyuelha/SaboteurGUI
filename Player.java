@@ -12,22 +12,15 @@ import java.util.Vector;
  * @author icha
  */
 public class Player {
-    private String Role;
+    private Character_Card Role;
     private String Status;
-    private Vector CardsOnHand;
+    private Vector<Card> CardsOnHand;
     
-    public Player()
+    public Player(int i, String S)
     {
-        Role = new String();
-        Status = new String();
-        CardsOnHand = new Vector<Card>();
-    }
-    
-    public Player(String R, String S)
-    {
-        Role = R;
+        Role = new Character_Card(i);
         Status = S;
-        CardsOnHand = new Vector<Card>();
+        CardsOnHand = new Vector<>();
     }
     
     public void setStatus(String S)
@@ -40,4 +33,7 @@ public class Player {
         CardsOnHand.add(c);
     }
     
+    public Card disCard(int index){
+        return CardsOnHand.remove(index);
+    }
 }
