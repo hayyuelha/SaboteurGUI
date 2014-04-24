@@ -39,5 +39,57 @@ class Path_Card extends Card {
     public void displayCard(){
         System.out.println("Ini pathcard");
     }
+    
+    public char getRight(){
+        return right;
+    }
+    
+    public char getLeft(){
+        return left;
+    }
+    
+    public char getTop(){
+        return top;
+    }
+    
+    public char getBottom(){
+        return bottom;
+    }
+    
+    public boolean canBePlacedRightOf(Path_Card C){
+        if((this.left=='1' && C.getRight()=='1')||(this.left=='0' && C.getRight()=='0') ){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    public boolean canBePlacedLeftOf(Path_Card C){
+        if((this.right=='1' && C.getLeft()=='1')||(this.right=='0' && C.getLeft()=='0') ){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    public boolean canBePlacedAboveOf(Path_Card C){
+        if((this.bottom=='1' && C.getTop()=='1')||(this.bottom=='0' && C.getTop()=='0') ){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    public boolean canBePlacedBelowOf(Path_Card C){
+        if((this.top=='1' && C.getBottom()=='1')||(this.top=='0' && C.getBottom()=='0') ){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
 
