@@ -1,27 +1,20 @@
 import java.util.Vector;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author icha
- */
 public class Player {
-    private Character_Card Role;
-    private String Status;
-    private Vector<Card> CardsOnHand;
+	private Character_Card Role;
+    private String Status = new String("Undefined");
+    private Vector<Card> CardsOnHand = new Vector();;
     private int Turn;
     private int Score;
+    private String Name = new String("Undefined");
     
-    public Player(int i, String S)
-    {
-        Role = new Character_Card(i);
-        Status = S;
-        CardsOnHand = new Vector<>();
+    public Player(String playerName){
+    	Name = playerName;
+    }
+    
+    public void setCardsOnHand(){
+    	
     }
     
     public void setStatus(String S)
@@ -30,11 +23,22 @@ public class Player {
     }
     
     public void setTurn(int t){
-        Turn = t
+        Turn = t;
     }
     
     public void setScore(int s){
         Score = s;
+    }
+    public String getPlayerName(){
+    	return Name;
+    }
+    
+    public void setRole(int id){
+    	Role = new Character_Card(id);
+    }
+    
+    public int getRoleId(){
+    	return Role.getID();
     }
     
     public void drawCard(Card c)
