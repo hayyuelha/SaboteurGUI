@@ -158,5 +158,495 @@ public class Board {
         MatrixOfCard[Position.get(0)][Position.get(1)] = P;
     }
     
-   
+    public void PrintBoard (){
+	//Kamus Lokal
+	int i,j;
+	char lineu[] = { 0xe2, 0x96, 0x94, '\0' };
+	char linel[] = { 0xe2, 0x96, 0x8f, '\0' };
+	char liner[] = { 0xe2, 0x96, 0x95, '\0' };
+	char lined[] = { 0xe2, 0x96, 0x81, '\0' };
+	char block[] = { 0xe2, 0x96, 0x88, '\0' };
+	char goal[] = { 0x47, '\0'};
+	char rock[] = { 0xe2, 0x97, 0x8e, '\0' };
+	char gold[] = { 0xe2, 0x98, 0x86, '\0' };
+	
+	//Algoritma
+	System.out.println();
+        System.out.println();
+		
+	for(i=1;i<=5;i++){	  
+		if (i==1) {
+			System.out.println("      1      2      3      4      5      6      7      8      9");
+                        System.out.println();
+			if(GoalCondition[1]){System.out.println("  " + liner + lineu + lineu + lineu + lineu + lineu + lineu);
+                        }else{
+                            System.out.print("  " + liner + lineu + lineu + block + block + lineu + lineu);
+                        } 
+                        for (j=2;j<=9;j++){
+                            System.out.print("" + liner + lineu + lineu); 
+                            if (MatrixOfCard[i][j].getTop() == '1') {
+                                System.out.print("" + block + block);
+                            } else {
+                                System.out.print("" + lineu + lineu);
+                            } 
+                            System.out.print("" + lineu + lineu);
+                        } 
+                        System.out.println("" + linel); 
+			if(GoalCondition[1]){
+                            System.out.print("  " + liner + "      ");
+                        } else {
+                            System.out.print("  "+ liner + "  " + block + block + "  ");
+                        } 
+                        for (j=2;j<=9;j++) {
+                            System.out.print(liner + "  ");
+                            if (MatrixOfCard[i][j].getTop() == '1') {
+                                System.out.print("" + block + block);
+                            } else {
+                                System.out.print("  ");
+                            } 
+                            System.out.print("  ");
+                        } 
+                        System.out.println("" + linel); 
+			if(GoalCondition[1]){
+                            System.out.print(" 1" + liner + "   " + goal + "  ");
+                        } else {
+                            if(MatrixOfCard[1][1].getCenter() == 'R'){
+                                System.out.print(" 1" + liner + block + block + rock + " " + block + block + "");
+                            } else {
+                                System.out.print(" 1" + liner + block + block + gold + " " + block + block + "");
+                            }
+                        }
+                        for (j=2;j<=9;j++) {
+                            if(MatrixOfCard[i][j].getLeft() == '1'){
+                                if(MatrixOfCard[i][j].getCenter() == '1'){
+                                    if (MatrixOfCard[i][j].getRight() == '1'){
+                                        System.out.print("" + liner + block + block + block + block + block + block);
+                                    } else {
+                                        System.out.print("" + liner + block + block + block + block + "  ");
+                                    }
+                                } else {
+                                    if (MatrixOfCard[i][j].getRight() == '1'){
+                                        System.out.print("" + liner + block + block + "  " + block + block);
+                                    } else {
+                                        System.out.print("" + liner + block + block + "    ");
+                                    }
+                                }
+                            } else {
+                                if(MatrixOfCard[i][j].getCenter() == '1'){
+                                    if (MatrixOfCard[i][j].getRight() == '1'){
+                                        System.out.print("" + liner + "  " + block + block + block + block);
+                                    } else {
+                                        System.out.print("" + liner + "  " + block + block +"  ");
+                                    }
+                                } else {
+                                    if (MatrixOfCard[i][j].getRight() == '1') {
+                                        System.out.print("" + liner + "    " + block + block);
+                                    } else {
+                                        System.out.print("" + liner + "      ");
+                                    }
+                                }
+                            }
+                        }
+                        System.out.println("" + linel);
+			if(GoalCondition[1]){
+                            System.out.print("  " + liner + "      ");
+                        } else {
+                            System.out.print("  " + liner + "  "+ block + block + "  ");
+                        }
+                        for (j=2;j<=9;j++) {
+                            System.out.print("" + liner + "  "); 
+                            if (MatrixOfCard[i][j].getBottom() == '1') {
+                                System.out.print("" + block + block);
+                            } else {
+                                System.out.print("  ");
+                            } 
+                            System.out.print("  ");
+                        }
+                        System.out.println("" + linel); 
+			if(GoalCondition[1]){
+                            System.out.print("  " + liner + lined + lined + lined + lined + lined + lined);
+                        } else {
+                            System.out.print("  " + liner + lined + lined + block + block + lined + lined);
+                        } 
+                        
+                        for (j=2;j<=9;j++) {
+                            System.out.print("" + liner + lined + lined);
+                            if (MatrixOfCard[i][j].getBottom() == '1') {
+                                System.out.print("" + block + block);
+                            } else {
+                                System.out.print("" + lined + lined);
+                            }
+                            System.out.print("" + lined + lined);
+                        } 
+                        System.out.println("" + linel);
+			} else if (i==3) {
+				if(GoalCondition[2]){
+                                    System.out.print("  " + liner + "      ");
+                                } else {
+                                    System.out.print("  " + liner + "  "+ block + block + "  ");
+                                } 
+                                for (j=2;j<=8;j++) {
+                                    System.out.print("" + liner + "  ");
+                                    if (MatrixOfCard[i][j].getTop() == '1') {
+                                        System.out.print("" + block + block);
+                                    } else {
+                                        System.out.print("  ");
+                                    } 
+                                    System.out.print("  ");
+                                } 
+                                System.out.print("" + liner + "  " + block + block + "  ");
+                                System.out.println("" + linel); 
+				if(GoalCondition[2]){
+                                    System.out.print("  " + liner + "      ");
+                                } else {
+                                    System.out.print("  " + liner + "  " + block + block + "  ");
+                                }
+                                for (j=2;j<=8;j++) {
+                                    System.out.print("" + liner + "  ");
+                                    if (MatrixOfCard[i][j].getTop() == '1') {
+                                        System.out.print("" + block + block);
+                                    } else {
+                                        System.out.print("  ");
+                                    } 
+                                    System.out.print("  ");
+                                } 
+                                System.out.print("" + liner + "  " + block + block + "  ");
+                                System.out.println("" + linel); 
+				if(GoalCondition[2]){
+                                    System.out.print(" 3" + liner + "   " + goal + "  ");
+                                } else {
+                                    if(MatrixOfCard[3][1].getCenter() == 'R'){
+                                        System.out.print(" 3"+ liner + block + block + rock + " " + block + block);
+                                    } else {
+                                        System.out.print("  "+ liner + block + block + gold + " " + block + block);
+                                    }
+                                }
+                                for (j=2;j<=8;j++) {
+                                    if(MatrixOfCard[i][j].getLeft() == '1'){
+                                        if(MatrixOfCard[i][j].getCenter() == '1'){
+                                            if (MatrixOfCard[i][j].getRight() == '1'){
+                                                System.out.print("" + liner + block + block + block + block + block + block);
+                                            } else {
+                                                System.out.print("" + liner + block + block + block + block + "  ");
+                                            }
+                                        } else {
+                                            if (MatrixOfCard[i][j].getRight() == '1'){
+                                                System.out.print("" + liner + block + block + "  " + block + block);
+                                            } else {
+                                                System.out.print("" + liner + block + block + "    ");
+                                            }
+                                        }
+                                    } else {
+                                        if(MatrixOfCard[i][j].getCenter( )== '1') {
+                                            if (MatrixOfCard[i][j].getRight() == '1'){
+                                                System.out.print("" + liner + "  " + liner + block + block + block + block);
+                                            } else {
+                                                System.out.print("" + liner + "  " + block + block + "  ");
+                                            }
+                                        } else {
+                                            if (MatrixOfCard[i][j].getRight() == '1') {
+                                                System.out.print("" + liner + "    " + block + block); 
+                                            } else {
+                                                System.out.print("" + liner + "      ");
+                                            }
+                                        }
+                                    }
+                                }
+                                System.out.print("" + liner + block + block + block + block + block + block);
+                                System.out.println("" + linel);
+				if(GoalCondition[2]){
+                                    System.out.print("  " + liner + "      ");
+                                } else {
+                                    System.out.print("  " + liner + "  " + block + block + "  ");
+                                } 
+                                for (j=2;j<=8;j++) {
+                                    System.out.print("" + liner + "  ");
+                                    if (MatrixOfCard[i][j].getBottom() == '1') {
+                                        System.out.print("" + block + block);
+                                    } else {
+                                        System.out.print("  ");
+                                    }
+                                    System.out.print("  ");
+                                }
+                                System.out.print("" + liner + "  " + block + block + "  ");
+                                System.out.println("" + linel); 
+				if(GoalCondition[2]){
+                                    System.out.print("  " + liner + lined + lined + lined + lined + lined + lined);
+                                } else {
+                                    System.out.print("  " + liner + lined + lined + block + block + lined + lined);
+                                }
+                                for (j=2;j<=8;j++) {
+                                    System.out.print("" + liner + lined + lined); 
+                                    if (MatrixOfCard[i][j].getBottom() == '1') {
+                                        System.out.print("" + block + block);
+                                    } else {
+                                        System.out.print("" + lined + lined);
+                                    } 
+                                    System.out.print("" + lined + lined);
+                                }
+                                System.out.print("" + liner + lined + lined + block + block + lined + lined);
+                                System.out.println("" + linel);
+				} else if (i==5) {
+                                    if(GoalCondition[3]){
+                                        System.out.print("  " + liner + "      ");
+                                    } else {
+                                        System.out.print("  " + liner + "  " + block + block + "  ");
+                                    }
+                                    for (j=2;j<=9;j++) {
+                                        System.out.print("" + liner + "  ");
+                                        if (MatrixOfCard[i][j].getTop() == '1') {
+                                            System.out.print("" + block + block);
+                                        } else {
+                                            System.out.print("  ");
+                                        }
+                                        System.out.print("  ");
+                                    }
+                                    System.out.println("" + linel); 
+                                    if(GoalCondition[3]){
+                                        System.out.print("  " + liner + "      ");
+                                    } else {
+                                        System.out.print("  " + liner + "  " + block + block + "  ");
+                                    }
+                                    for (j=2;j<=9;j++) {
+                                        System.out.print("" + liner + "  ");
+                                        if (MatrixOfCard[i][j].getTop() == '1') {
+                                            System.out.print("" + block + block);
+                                        } else {
+                                            System.out.print("  ");
+                                        }
+                                        System.out.print("  ");
+                                    }
+                                    System.out.println("" + linel); 
+                                    if(GoalCondition[3]){
+                                        System.out.print(" 5" + liner + "   " + goal + "  ");
+                                    } else {
+                                        if(MatrixOfCard[5][1].getCenter() == 'R'){
+                                            System.out.print(" 5" + liner + block + block + rock + " " + block + block);
+                                        } else {
+                                            System.out.print(" 5" + liner + block + block + gold + " " + block + block);
+                                        }
+                                    }
+                                    for (j=2;j<=9;j++) {
+                                        if(MatrixOfCard[i][j].getLeft() == '1'){
+                                            if(MatrixOfCard[i][j].getCenter() == '1'){
+                                                if (MatrixOfCard[i][j].getRight() == '1'){
+                                                    System.out.print("" + liner + block + block + block + block + block + block);
+                                                } else {
+                                                    System.out.print("" + liner + block + block + block + block + "  ");
+                                                }
+                                            } else {
+                                                if (MatrixOfCard[i][j].getRight() == '1'){
+                                                    System.out.print("" + liner + block + block + "  " + block + block);
+                                                } else {
+                                                    System.out.print("" + liner + block + block + "    ");
+                                                }
+                                            }
+                                        } else {
+                                            if(MatrixOfCard[i][j].getCenter() == '1') {
+                                                if (MatrixOfCard[i][j].getRight() == '1'){
+                                                    System.out.print("" + liner + "  " + liner + block + block + block + block);
+                                                } else {
+                                                    System.out.print("" + liner + "  " + block + block + "  ");
+                                                }
+                                            } else {
+                                                if (MatrixOfCard[i][j].getRight() == '1') {
+                                                    System.out.print("" + liner + "    " + block + block);
+                                                } else {
+                                                    System.out.print("" + liner + "      ");
+                                                }
+                                            }
+                                        }
+                                    }
+                                    System.out.println("" + linel);
+                                    if(GoalCondition[3]){
+                                        System.out.print("  " + liner + "      ");
+                                    } else {
+                                        System.out.print("  " + liner + "  " + block + block + "  ");
+                                    } 
+                                    for (j=2;j<=9;j++) {
+                                        System.out.print(""+ liner + "  ");
+                                        if (MatrixOfCard[i][j].getBottom() == '1') {
+                                            System.out.print("" + block + block);
+                                        } else {
+                                            System.out.print("  ");
+                                        }
+                                        System.out.print("  ");
+                                    }
+                                    System.out.println("" + linel); 
+                                    if(GoalCondition[3]){
+                                        System.out.print("  " + liner + lined + lined + lined + lined + lined + lined);
+                                    } else {
+                                        System.out.print("  " + liner + lined + lined + block + block + lined + lined);
+                                    }
+                                    for (j=2;j<=9;j++) {
+                                        System.out.print("" + liner + lined + lined); 
+                                        if (MatrixOfCard[i][j].getBottom() == '1') {
+                                            System.out.print("" + block + block);
+                                        } else {
+                                            System.out.print("" + lined + lined);
+                                        }
+                                        System.out.print("" + lined + lined);
+                                    }
+                                    System.out.println("" + linel);
+				} else if (i==2){
+                                    System.out.print("  ");
+                                    for (j=1;j<=9;j++) {
+                                        System.out.print("" + liner + "  "); 
+                                        if (MatrixOfCard[i][j].getTop() == '1') {
+                                            System.out.print("" + block + block);
+                                        } else {
+                                            System.out.print("  ");
+                                        }
+                                        System.out.print("  ");
+                                    } 
+                                    System.out.println("" + linel); 
+                                    System.out.print("  ");
+                                    for (j=1;j<=9;j++) {
+                                        System.out.print("" + liner + "  "); 
+                                        if (MatrixOfCard[i][j].getTop() == '1') {
+                                            System.out.print("" + block + block);
+                                        } else {
+                                            System.out.print("  ");
+                                        }
+                                        System.out.print("  ");
+                                    }
+                                    System.out.println("" + linel); 
+                                    System.out.print(" 2");
+                                    for (j=1;j<=9;j++) {
+                                        if(MatrixOfCard[i][j].getLeft() == '1'){
+                                            if(MatrixOfCard[i][j].getCenter() == '1'){
+                                                if (MatrixOfCard[i][j].getRight() == '1'){
+                                                    System.out.print("" + liner + block + block + block + block + block + block);
+                                                } else {
+                                                    System.out.print("" + liner + block + block + block + block + "  ");
+                                                }
+                                            } else {
+                                                if (MatrixOfCard[i][j].getRight() == '1'){
+                                                    System.out.print("" + liner + block + block + "  " + block + block);
+                                                } else {
+                                                    System.out.print("" + liner + block + block + "    ");
+                                                }
+                                            }
+                                        } else {
+                                            if(MatrixOfCard[i][j].getCenter() == '1') {
+                                                if (MatrixOfCard[i][j].getRight() == '1'){
+                                                    System.out.print("" + liner + "  " + block + block + block + block);
+                                                } else {
+                                                    System.out.print("" + liner + "  " + block + block);
+                                                }
+                                            } else {
+                                                if (MatrixOfCard[i][j].getRight() == '1') {
+                                                    System.out.print("" + liner + "    " + block + block);
+                                                } else {
+                                                    System.out.print("" + liner + "      ");
+                                                }
+                                            }
+                                        }
+                                    }
+                                    System.out.println("" + linel);
+                                    System.out.print("  ");
+                                    for (j=1;j<=9;j++) {
+                                        System.out.print("" + liner + "  ");
+                                        if (MatrixOfCard[i][j].getBottom() == '1') {
+                                            System.out.print("" + block + block);
+                                        } else {
+                                            System.out.print("  ");
+                                        }
+                                        System.out.print("  ");
+                                    }
+                                    System.out.println("" + linel); 
+                                    System.out.print("  ");
+                                    for (j=1;j<=9;j++) {
+                                        System.out.print("" + liner + lined + lined); 
+                                        if (MatrixOfCard[i][j].getBottom() == '1') {
+                                            System.out.print("" + block + block);
+                                        } else {
+                                            System.out.print("" + lined + lined);
+                                        }
+                                        System.out.print("" + lined + lined);
+                                    }
+                                    System.out.println("" + linel);
+
+				}
+				else if (i==4){
+					System.out.print("  ");
+                                        for (j=1;j<=9;j++) {
+                                            System.out.print("" + liner + "  ");
+                                            if (MatrixOfCard[i][j].getTop() == '1') {
+                                                System.out.print("" + block + block);
+                                            } else {
+                                                System.out.print("  ");
+                                            } 
+                                            System.out.print("  ");
+                                        } System.out.println("" + linel); 
+					System.out.print("  ");
+                                        for (j=1;j<=9;j++) {
+                                            System.out.print("" + liner + "  ");
+                                            if (MatrixOfCard[i][j].getTop() == '1') {
+                                                System.out.print("" + block + block);
+                                            } else {
+                                                System.out.print("  ");
+                                            }
+                                            System.out.print("  ");
+                                        }
+                                        System.out.println("" + linel); 
+					System.out.print(" 4");
+                                        for (j=1;j<=9;j++) {
+                                            if(MatrixOfCard[i][j].getLeft() == '1'){
+                                                if(MatrixOfCard[i][j].getCenter() == '1'){
+                                                    if (MatrixOfCard[i][j].getRight() == '1'){
+                                                        System.out.print("" + liner + block + block + block + block + block + block);
+                                                    } else {
+                                                        System.out.print("" + liner + block + block + block + block + "  ");
+                                                    }
+                                                } else {
+                                                    if (MatrixOfCard[i][j].getRight() == '1'){
+                                                        System.out.print("" + liner + block + block + "  " + block + block);
+                                                    } else {
+                                                        System.out.print("" + liner + block + block + "    ");
+                                                    }
+                                                }
+                                            } else {
+                                                if(MatrixOfCard[i][j].getCenter() == '1') {
+                                                    if (MatrixOfCard[i][j].getRight() == '1'){
+                                                        System.out.print("" + liner + "  " + block + block + block + block);
+                                                    } else {
+                                                        System.out.print("" + liner + "  " + block + block);
+                                                    }
+                                                } else {
+                                                    if (MatrixOfCard[i][j].getRight() == '1') {
+                                                        System.out.print("" + liner + "    " + block + block);
+                                                    } else {
+                                                        System.out.print("" + liner + "      ");
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        System.out.println("" + linel);
+					System.out.print("  ");
+                                        for (j=1;j<=9;j++) {
+                                            System.out.print("" + liner + "  ");
+                                            if (MatrixOfCard[i][j].getBottom() == '1') {
+                                                System.out.print("" + block + block);
+                                            } else {
+                                                System.out.print("  ");
+                                            }
+                                            System.out.print("  ");
+                                        }
+                                        System.out.println("" + linel); 
+					System.out.print("  ");
+                                        for (j=1;j<=9;j++) {
+                                            System.out.print("" + liner + lined + lined); 
+                                            if (MatrixOfCard[i][j].getBottom() == '1') {
+                                                System.out.print("" + block + block);
+                                            } else {
+                                                System.out.print("" + lined + lined);
+                                            }
+                                            System.out.print("" + lined + lined);
+                                        }
+                                        System.out.println("" + linel);
+				}
+		}
+}
+
 }
