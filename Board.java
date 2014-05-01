@@ -195,12 +195,12 @@ public class Board {
                         } 
                         System.out.println(linel); 
 			if(GoalCondition[0]){
-                            System.out.print("  " + liner + "         ");
+                            System.out.print("  " + liner + "      ");
                         } else {
-                            System.out.print("  "+ liner + "     " + block + block + "   ");
+                            System.out.print("  "+ liner + "  " + block + block + "   ");
                         } 
                         for (j=2;j<=9;j++) {
-                            System.out.print(liner + "   ");
+                            System.out.print(liner + "  ");
                             if (MatrixOfCard[i][j].getTop() == '1') {
                                 System.out.print(block + block);
                             } else {
