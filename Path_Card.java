@@ -10,7 +10,10 @@
  */
 
 class Path_Card extends Card {
-    public static Path_Card NilCard= new Path_Card('0','0','0','0','0',0);
+    public static Path_Card NilCard = new Path_Card('0', '0', '0', '0', '0', 0);
+    public static Path_Card StartCard = new Path_Card('1', '1', '1', '1', '1', 17);
+    public static Path_Card GoldCard = new Path_Card('1', '1', '1', '1', 'G', 18);
+    public static Path_Card RockCard = new Path_Card('1', '1', '1', '1', 'R', 19);
     private char top;
     private char right;
     private char bottom;
