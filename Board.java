@@ -13,34 +13,34 @@ import java.util.Vector;
  * @author icha
  */
 public class Board {
-    private Path_Card[][] MatrixOfCard;
-    private boolean[] GoalCondition;
+    private Path_Card[][] MatrixOfCard;     // Papan permainan
+    private boolean[] GoalCondition;        // True jika GoalCard dalam keadaan tertutup
     
     public Board(){
         MatrixOfCard = new Path_Card[6][10];
         for (int i=1; i<=5; i++){
             for (int j=1; j<=9; j++){
-                MatrixOfCard[i][j] = new Path_Card('0', '0', '0', '0', '0', 0);     //nilcard
+                MatrixOfCard[i][j] = Path_Card.NilCard;     //nilcard
             }
         }
-        MatrixOfCard[1][3] = new Path_Card('1', '1', '1', '1', '1', 17);    //startcard
+        MatrixOfCard[3][9] = Path_Card.StartCard;    //startcard
         
         Random randomGenerator = new Random();
         int X = randomGenerator.nextInt(3);
         if (X == 1) 
-		{MatrixOfCard[1][1] = new Path_Card('1', '1', '1', '1', 'G', 18);   //GoldCard
-		 MatrixOfCard[3][1] = new Path_Card('1', '1', '1', '1', 'R', 19);   //RockCard
-		 MatrixOfCard[5][1] = new Path_Card('1', '1', '1', '1', 'R', 19);
+		{MatrixOfCard[1][1] = Path_Card.GoldCard;   //Path_Card.GoldCard
+		 MatrixOfCard[3][1] = Path_Card.RockCard;   //Path_Card.RockCard
+		 MatrixOfCard[5][1] = Path_Card.RockCard;
 		}
 	else if (X == 2) 
-		{MatrixOfCard[3][1] = new Path_Card('1', '1', '1', '1', 'G', 18);
-		 MatrixOfCard[5][1] = new Path_Card('1', '1', '1', '1', 'R', 19);
-		 MatrixOfCard[1][1] = new Path_Card('1', '1', '1', '1', 'R', 19);
+		{MatrixOfCard[3][1] = Path_Card.GoldCard;
+		 MatrixOfCard[5][1] = Path_Card.RockCard;
+		 MatrixOfCard[1][1] = Path_Card.RockCard;
 		}
 	else if (X == 3)
-		{MatrixOfCard[5][1] = new Path_Card('1', '1', '1', '1', 'G', 18);
-		 MatrixOfCard[3][1] = new Path_Card('1', '1', '1', '1', 'R', 19);
-		 MatrixOfCard[1][1] = new Path_Card('1', '1', '1', '1', 'R', 19);
+		{MatrixOfCard[5][1] = Path_Card.GoldCard;
+		 MatrixOfCard[3][1] = Path_Card.RockCard;
+		 MatrixOfCard[1][1] = Path_Card.RockCard;
 		}
         GoalCondition = new boolean[3];
         for (int i=0; i<3; i++){
@@ -83,63 +83,59 @@ public class Board {
     public boolean validatorPosition(Path_Card P, Vector<Integer> Position){
         boolean valid = false, aboveIsValid, belowIsValid, rightIsValid, leftIsValid;
         
-        Path_Card NilCard = new Path_Card('0', '0', '0', '0', '0', 0);
-        Path_Card RockCard = new Path_Card('1', '1', '1', '1', 'R', 19);
-        Path_Card GoldCard = new Path_Card('1', '1', '1', '1', 'G', 18);
-        
-        if (NilCard.CompareCard(MatrixOfCard[Position.get(0)][Position.get(1)])){
+        if (Path_Card.NilCard.CompareCard(MatrixOfCard[Position.get(0)][Position.get(1)])){
             Path_Card CardAbove = getCardAboveOf(Position);
             Path_Card CardBelow = getCardBelowOf(Position);
             Path_Card CardRight = getCardRightOf(Position);
             Path_Card CardLeft = getCardLeftOf(Position);
             
-            if (NilCard.CompareCard(CardAbove) && NilCard.CompareCard(CardBelow) && NilCard.CompareCard(CardRight) && NilCard.CompareCard(CardLeft)){
+            if (Path_Card.NilCard.CompareCard(CardAbove) && Path_Card.NilCard.CompareCard(CardBelow) && Path_Card.NilCard.CompareCard(CardRight) && Path_Card.NilCard.CompareCard(CardLeft)){
                 valid = false;
             } else {
                 if ((Position.get(1) == 2) || (Position.get(1) == 1)){
-                    if (RockCard.CompareCard(CardLeft) || GoldCard.CompareCard(CardLeft)){
-                        if (! NilCard.CompareCard(CardAbove)){
+                    if (Path_Card.RockCard.CompareCard(CardLeft) || Path_Card.GoldCard.CompareCard(CardLeft)){
+                        if (! Path_Card.NilCard.CompareCard(CardAbove)){
                             aboveIsValid = P.canBePlacedBelowOf(CardAbove);
                         } else {
                             aboveIsValid = true;
                         }
                         
-                        if (! NilCard.CompareCard(CardBelow)){
+                        if (! Path_Card.NilCard.CompareCard(CardBelow)){
                             belowIsValid = P.canBePlacedAboveOf(CardBelow);
                         } else {
                             belowIsValid = true;
                         }
                         
-                        if (! NilCard.CompareCard(CardRight)){
+                        if (! Path_Card.NilCard.CompareCard(CardRight)){
                             rightIsValid = P.canBePlacedLeftOf(CardRight);
                         } else {
                             rightIsValid = true;
                         }
                         
                         valid = aboveIsValid && belowIsValid && rightIsValid;
-                    } else if ((RockCard.CompareCard(CardAbove) || GoldCard.CompareCard(CardAbove)) && (RockCard.CompareCard(CardBelow) || GoldCard.CompareCard(CardBelow))){
+                    } else if ((Path_Card.RockCard.CompareCard(CardAbove) || Path_Card.GoldCard.CompareCard(CardAbove)) && (Path_Card.RockCard.CompareCard(CardBelow) || Path_Card.GoldCard.CompareCard(CardBelow))){
                         valid = P.canBePlacedLeftOf(CardRight);
                     }
                 } else {
-                    if (! NilCard.CompareCard(CardAbove)) {
+                    if (! Path_Card.NilCard.CompareCard(CardAbove)) {
                         aboveIsValid = P.canBePlacedBelowOf(CardAbove);
                     } else {
                         aboveIsValid = true;
                     }
                     
-                    if (! NilCard.CompareCard(CardBelow)){
+                    if (! Path_Card.NilCard.CompareCard(CardBelow)){
                         belowIsValid = P.canBePlacedAboveOf(CardBelow);
                     } else {
                         belowIsValid = true;
                     }
                         
-                    if (! NilCard.CompareCard(CardRight)){
+                    if (! Path_Card.NilCard.CompareCard(CardRight)){
                         rightIsValid = P.canBePlacedLeftOf(CardRight);
                     } else {
                         rightIsValid = true;
                     }
                     
-                    if (! NilCard.CompareCard(CardLeft)) {
+                    if (! Path_Card.NilCard.CompareCard(CardLeft)) {
                         leftIsValid = P.canBePlacedRightOf(CardLeft);
                     } else {
                         leftIsValid = true;
@@ -158,7 +154,7 @@ public class Board {
         MatrixOfCard[Position.get(0)][Position.get(1)] = P;
     }
     
-    public void PrintBoard (){
+    public void PrintBoard(){
 	//Kamus Lokal
 	int i,j;
 	String lineu = "\u2594";
@@ -651,4 +647,81 @@ public class Board {
 		}
 }
 
+    public void openGoal(){
+    /* I.S. G dalam keadaan tertutup.
+    *  F.S. Mengecek apakah pemain berhasil meletakkan PathCard di sebelah GoalCard yang berisi RockCard pada Board B.
+    *      Jika berhasil, maka G dalam keadaan terbuka.
+    *      Jika tidak, maka G tetap dalam keadaan tertutup. */
+	
+	boolean[][] check = new boolean[6][10];
+	int i, j;
+	Path_Card P = new Path_Card('0', '0', '0', '0', '0', 0);
+	
+	for (i=1;i<=5;i++) {
+		for (j=1;j<=9;j++) {
+			check[i][j]=false;
+		}
+	}
+        Vector<Integer> position1 = new Vector<>(); position1.add(0, 1); position1.add(1, 1);
+        Vector<Integer> position2 = new Vector<>(); position2.add(0, 3); position2.add(1, 1);
+        Vector<Integer> position3 = new Vector<>(); position3.add(0, 5); position3.add(1, 1);
+	if (! Path_Card.GoldCard.CompareCard(MatrixOfCard[1][1]))	
+	{this.openGoalRecc(position1, check, P); if (Path_Card.StartCard.CompareCard(P)) {GoalCondition[0] = false;}}		//jika terdapat lintasan dari GoalCard sampai StartCard, maka GoalCard dalam keadaan terbuka
+	if (! Path_Card.GoldCard.CompareCard(MatrixOfCard[3][1]))	
+	{this.openGoalRecc(position3, check, P); if (Path_Card.StartCard.CompareCard(P)) {GoalCondition[1] = false;}}
+	if (! Path_Card.GoldCard.CompareCard(MatrixOfCard[5][1]))	
+        {this.openGoalRecc(position3, check, P); if (Path_Card.StartCard.CompareCard(P)) {GoalCondition[2] = false;}}
+
+    }
+    
+    public boolean isFinished(){
+    /* I.S. B terdefinisi
+    * F.S. Mengembalikan nilai true jika kondisi akhir permainan tercapai, yaitu saat pemain 
+            berhasil meletakkan PathCard di sebelah GoalCard yang merupakan GoldCard. */
+	
+	boolean[][] check = new boolean[6][10];
+	boolean berakhir;
+        int i, j;
+	Path_Card P = new Path_Card('0', '0', '0', '0', '0', 0);
+
+	for (i=1;i<=5;i++) {
+		for (j=1;j<=9;j++) {
+			check[i][j]=false;
+		}
+	}
+	Vector<Integer> position1 = new Vector<>(); position1.add(0, 1); position1.add(1, 1);
+        Vector<Integer> position2 = new Vector<>(); position2.add(0, 3); position2.add(1, 1);
+        Vector<Integer> position3 = new Vector<>(); position3.add(0, 5); position3.add(1, 1);
+	berakhir = false;
+	if (Path_Card.GoldCard.CompareCard(MatrixOfCard[1][1]))
+	{this.openGoalRecc(position1, check, P); if (Path_Card.StartCard.CompareCard(P)) {berakhir = true; GoalCondition[1] = false;}}
+	else if (Path_Card.GoldCard.CompareCard(MatrixOfCard[3][1]))
+	{this.openGoalRecc(position2, check, P); if (Path_Card.StartCard.CompareCard(P)) {berakhir = true; GoalCondition[2] = false;}}
+	else if (Path_Card.GoldCard.CompareCard(MatrixOfCard[5][1]))
+	{this.openGoalRecc(position3, check, P); if (Path_Card.StartCard.CompareCard(P)) {berakhir = true; GoalCondition[3] = false;}}
+        return berakhir;
+    }
+    
+    public void openGoalRecc(Vector<Integer> Position, boolean[][] cek, Path_Card P){
+    /* Proses: Prosedur rekursif 4 arah untuk mengecek apakah ada jalan yang terbentuk dari GoalCard ke Path_Card.StartCard.
+    * F.S: P akan berisi Path_Card.StartCard jika prosedur ini berhasil mencapai Path_Card.StartCard.
+    *      P akan berisi Path_Card.NilCard jika prosedur ini berhenti pada kotak kosong.
+    *      P akan berisi PathCard yang lain jika prosedur ini berhenti di PathCard yang merupakan kartu buntu */ 
+        cek[Position.get(0)][Position.get(1)] = true;		//sudah dicek
+	if (((Position.get(0) == 3) && (Position.get(1) == 9)) || (Path_Card.NilCard.CompareCard(MatrixOfCard[Position.get(0)][Position.get(1)])) || ((MatrixOfCard[Position.get(0)][Position.get(1)]).getCenter() == '0'))
+	{
+		P = MatrixOfCard[Position.get(0)][Position.get(1)];
+	}
+	else
+	{
+		if (((MatrixOfCard[Position.get(0)][Position.get(1)]).getTop() == '1') && (Position.get(0) > 1) && (! Path_Card.NilCard.CompareCard(this.getCardAboveOf(Position))) && (! cek[Position.get(0)-1][Position.get(1)])) 
+		{this.openGoalRecc(Position, cek, P);} 
+		if ((! (Path_Card.StartCard.CompareCard(P))) && ((MatrixOfCard[Position.get(0)][Position.get(1)]).getRight() == '1') && (Position.get(1) < 9) && (! Path_Card.NilCard.CompareCard(this.getCardRightOf(Position))) && (! cek[Position.get(0)][Position.get(1)+1])) 
+		{this.openGoalRecc(Position, cek, P);}
+		if ((! (Path_Card.StartCard.CompareCard(P))) && ((MatrixOfCard[Position.get(0)][Position.get(1)]).getBottom() == '1') && (Position.get(0) < 5) && (! Path_Card.NilCard.CompareCard(this.getCardBelowOf(Position))) && (! cek[Position.get(0) +1][Position.get(1)])) 
+		{this.openGoalRecc(Position, cek, P);}
+		if ((! (Path_Card.StartCard.CompareCard(P))) && ((MatrixOfCard[Position.get(0)][Position.get(1)]).getLeft() == '1') && (Position.get(1) > 1) && (! Path_Card.NilCard.CompareCard(this.getCardLeftOf(Position))) && (! cek[Position.get(0)][Position.get(1)-1])) 
+		{this.openGoalRecc(Position, cek, P);}
+	}
+    }
 }
