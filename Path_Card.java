@@ -8,8 +8,9 @@
  *
  * @author nim_13512080
  */
-class Path_Card extends Card {
 
+class Path_Card extends Card {
+    public static Path_Card NilCard= new Path_Card('0','0','0','0','0',0);
     private char top;
     private char right;
     private char bottom;
