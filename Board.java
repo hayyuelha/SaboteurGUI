@@ -151,7 +151,11 @@ public class Board {
     }
     
     public void putCardOnBoard(Path_Card P, Vector<Integer> Position){
-        MatrixOfCard[Position.get(0)][Position.get(1)] = P;
+        if (this.validatorPosition(P,Position)){
+            MatrixOfCard[Position.get(0)][Position.get(1)] = P;    
+        }else{
+            System.out.println("Koordinat tidak valid");
+        }
     }
     
     public void PrintBoard(){
