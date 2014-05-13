@@ -1,14 +1,17 @@
+import java.util.Date;
 import java.util.Vector;
 
 
 public class Player {
-	private Character_Card Role;
+    private Character_Card Role;
     private String Status = new String("Undefined");
     private Vector<Card> CardsOnHand = new Vector();;
     private int Turn;
     private int Score;
     private String Name = new String("Undefined");
-    
+    private Date lastplay = new Date();
+    private String LastPlay = lastplay.toString();
+   
     public Player(String playerName){
     	Name = playerName;
     }
@@ -29,6 +32,11 @@ public class Player {
     public void setScore(int s){
         Score = s;
     }
+    
+    public void setDate(String d){
+        LastPlay = d;        
+    }
+    
     public String getPlayerName(){
     	return Name;
     }
