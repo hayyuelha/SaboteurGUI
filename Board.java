@@ -48,6 +48,22 @@ public class Board {
         }
     }
     
+    public void viewMap(int i){
+        switch (i){
+            case 1:
+                printCard(MatrixOfCard[1][1]);
+            case 2:
+                printCard(MatrixOfCard[3][1]);
+            case 3:
+                printCard(MatrixOfCard[5][1]);
+        }
+    }
+    
+    private void printCard(Path_Card P){
+        if (P.CompareCard(Path_Card.GoldCard)){System.out.println("GoldCard");}
+        else if (P.CompareCard(Path_Card.RockCard)){System.out.println("RockCard");}
+    }
+    
     private Path_Card getCardLeftOf(Vector<Integer> Position){
         if (Position.get(1) == 1){
             return new Path_Card('0', '0', '0', '0', '0', 0);     //nilcard
@@ -150,11 +166,14 @@ public class Board {
         return valid;
     }
     
-    public void putCardOnBoard(Path_Card P, Vector<Integer> Position){
+    public int putCardOnBoard(Path_Card P, Vector<Integer> Position){
+        
         if (this.validatorPosition(P,Position)){
-            MatrixOfCard[Position.get(0)][Position.get(1)] = P;    
+            MatrixOfCard[Position.get(0)][Position.get(1)] = P;
+            return 0;
         }else{
             System.out.println("Koordinat tidak valid");
+            return -1;
         }
     }
     
