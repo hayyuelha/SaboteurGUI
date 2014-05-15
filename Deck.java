@@ -26,13 +26,13 @@ public class Deck {
         
         for (int i=1; i<=4; i++){
         	PileOfCard.addElement(new Path_Card('0', '0', '1', '1', '1', 2));
-        	PileOfCard.addElement(new Path_Card('1', '0', '1', '0', '1', 4));
+        	PileOfCard.addElement(new Path_Card('0', '1', '0', '1', '1', 4));
     	}
         for (int i=1; i<=5; i++){
-        	PileOfCard.addElement(new Path_Card('1', '0', '1', '1', '1', 6));
+        	PileOfCard.addElement(new Path_Card('0', '1', '1', '1', '1', 6));
         	PileOfCard.addElement(new Path_Card('1', '1', '1', '1', '1', 1));
             PileOfCard.addElement(new Path_Card('0', '1', '1', '0', '1', 5));
-            PileOfCard.addElement(new Path_Card('1', '1', '0', '1', '1', 7));
+            PileOfCard.addElement(new Path_Card('1', '1', '1', '0', '1', 7));
         }
         for (int i=1; i<=3; i++)
         	PileOfCard.addElement(new Path_Card('1', '1', '0', '0', '1', 3));
@@ -43,14 +43,15 @@ public class Deck {
         for (int i=1; i<=9; i++)
         	PileOfCard.addElement(new Action_Card(2));
         
+        PileOfCard.addElement(new Path_Card('1', '1', '0', '0', '0', 11));
         PileOfCard.addElement(new Path_Card('0', '0', '1', '1', '0', 10));
-        PileOfCard.addElement(new Path_Card('1', '1', '0', '1', '0', 15));
-        PileOfCard.addElement(new Path_Card('0', '0', '1', '0', '1', 8));
-        PileOfCard.addElement(new Path_Card('0', '1', '1', '1', '0', 14));
+        PileOfCard.addElement(new Path_Card('1', '1', '1', '0', '0', 15));
+        PileOfCard.addElement(new Path_Card('0', '0', '0', '1', '1', 8));
+        PileOfCard.addElement(new Path_Card('0', '0', '1', '1', '0', 14));
         PileOfCard.addElement(new Path_Card('1', '1', '1', '1', '0', 16));
-        PileOfCard.addElement(new Path_Card('1', '0', '1', '0', '0', 13));
+        PileOfCard.addElement(new Path_Card('0', '1', '0', '1', '0', 13));
         PileOfCard.addElement(new Path_Card('0', '1', '1', '0', '0', 12));
-        PileOfCard.addElement(new Path_Card('0', '1', '0', '0', '1', 9));
+        PileOfCard.addElement(new Path_Card('1', '0', '0', '0', '1', 9));
         
         Collections.shuffle(PileOfCard);
         NumberOfAvailableCard = 60;
