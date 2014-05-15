@@ -335,9 +335,13 @@ public class GamePlay {
 		int indexMenu = 0;
 		while(indexMenu!= 4){
 			showMenuCMD();
-			indexMenu = scan.nextInt();
-                        runMenu(indexMenu);
-		}
+                        try {
+                            indexMenu = scan.nextInt();
+                            runMenu(indexMenu);
+                        }catch(Exception e){
+                            printMessage("Sorry, your input is invalid!");
+                        }
+                }
 		System.out.print("==== Game closed ====");
 	}
 }
