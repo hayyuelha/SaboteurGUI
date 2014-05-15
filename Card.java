@@ -10,6 +10,7 @@
  */
 
 public abstract class Card {
+    
     public abstract void displayCard();
     public abstract int getType(); //1=Path_Card, 2=Action_Card, 3=Character_Card
     public abstract int getID();
