@@ -20,7 +20,7 @@ public class Board {
         MatrixOfCard = new Path_Card[6][10];
         for (int i=1; i<=5; i++){
             for (int j=1; j<=9; j++){
-                MatrixOfCard[i][j] = Path_Card.NilCard;     //nilcard
+                MatrixOfCard[i][j] = new Path_Card('0', '0', '0', '0', '0', 0); 
             }
         }
         MatrixOfCard[3][9] = Path_Card.StartCard;    //startcard
@@ -51,11 +51,11 @@ public class Board {
     public void viewMap(int i){
         switch (i){
             case 1:
-                printCard(MatrixOfCard[1][1]);
+                printCard(MatrixOfCard[1][1]); break;
             case 2:
-                printCard(MatrixOfCard[3][1]);
+                printCard(MatrixOfCard[3][1]); break;
             case 3:
-                printCard(MatrixOfCard[5][1]);
+                printCard(MatrixOfCard[5][1]); break;
         }
     }
     
