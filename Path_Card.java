@@ -103,5 +103,14 @@ class Path_Card extends Card {
     public boolean CompareCard(Path_Card C){
         return ((this.top==C.getTop())&&(this.bottom==C.getBottom())&&(this.right==C.getRight())&&(this.left==C.getLeft())&&(this.center==C.getCenter())&&(this.id==C.getID()));
     }
+    
+    public void rotateCard(){
+        char temp = right;
+        right = left;
+        left = temp;
+        temp = top;
+        top = bottom;
+        bottom = temp;
+    }
 }
 
