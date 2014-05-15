@@ -122,7 +122,7 @@ public class GamePlay {
         }
         
         private void setNextPlayer(){
-            if(currentPlayer.getTurn()==ListOfPlayer.size()){
+            if(currentPlayer.getTurn()==ListOfPlayer.size()-1){
                 currentPlayer = ListOfPlayer.get(0);
             }else{
                do{
@@ -142,39 +142,37 @@ public class GamePlay {
                 System.out.println("\nYour turn : "+currentPlayer.getPlayerName());
                 currentPlayer.printCardsOnHand();
                 showMenuGame();
-                try{
-                    int menu = scan.nextInt();
-                    switch (menu){
-                        case 1 ://draw Card 
-                                processMenuDrawCard();
-                                break;
-                        case 2 : // Choose Card
-                                 processMenuChooseCard();
-                                 break;
-                        case 3 : ShowPlayers();
-                                 break;
-                        case 4 : currentPlayer.showStatus();
-                                 backToPrevMenu();
-                                 break;
-                        case 5 : int IdxPrevPlayer = currentPlayer.getTurn();
-                                 setNextPlayer();
-                                 changeTurn(IdxPrevPlayer);
-                                 ListOfPlayer.removeElementAt(IdxPrevPlayer);
-                                 break;
-                        default :printMessage("input is not valid!");
-                    }
-                    finish = (board.isFinished() || ListOfPlayer.size()<3);
-                    if(currentPlayer.getFinishedDraw()&& menu!=5)
-                        setNextPlayer();
-                }catch(Exception e){
-                    printMessage("input is not valid!");
+                int menu = scan.nextInt();
+                switch (menu){
+                    case 1 ://draw Card 
+                            processMenuDrawCard();
+                            break;
+                    case 2 : // Choose Card
+                             processMenuChooseCard();
+                             break;
+                    case 3 : ShowPlayers();
+                             break;
+                    case 4 : currentPlayer.showStatus();
+                             backToPrevMenu();
+                             break;
+                    case 5 : int IdxPrevPlayer = currentPlayer.getTurn();
+                             setNextPlayer();
+                             changeTurn(IdxPrevPlayer);
+                             ListOfPlayer.removeElementAt(IdxPrevPlayer);
+                             break;
+                    default :printMessage("default : input is  not valid!");
                 }
+                finish = (board.isFinished() || ListOfPlayer.size()<3);
+               // printMessage(currentPlayer.getFinishedDraw()+" bbb is  not valid!");
+                if(currentPlayer.getFinishedDraw() && menu!=5)
+                    setNextPlayer();
             }
             ListOfPlayer.clear();
         }
         
         private void changeTurn(int idx)
         {
+            ListOfPlayer.clear();
             for (int i = idx+1 ; i < ListOfPlayer.size() ; i++){
                 ListOfPlayer.get(i).setTurn(i-1);
             }
@@ -239,6 +237,8 @@ public class GamePlay {
         private void usingCard(Card crd){
             if (crd.getType()==1){
                 //pathcard
+                System.out.print("Apakah Anda mau memutar kartu? (y/n) ");
+                if ("y".equals(scan.next())){((Path_Card) crd).rotateCard();}
                 System.out.print("Masukkan koordinat x<spasi>y : ");
                 Vector<Integer> pos = new Vector(); pos.add(0,scan.nextInt());
                 pos.add(1,scan.nextInt());
@@ -335,12 +335,8 @@ public class GamePlay {
 		int indexMenu = 0;
 		while(indexMenu!= 4){
 			showMenuCMD();
-			try{
-				indexMenu = scan.nextInt();
-				runMenu(indexMenu);
-			}catch(Exception e){
-				printMessage("Sorry your input is not valid !");
-			}
+			indexMenu = scan.nextInt();
+                        runMenu(indexMenu);
 		}
 		System.out.print("==== Game closed ====");
 	}
