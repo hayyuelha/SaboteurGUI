@@ -11,18 +11,35 @@ public class Player {
     private String Name = new String("Undefined");
     private Date lastplay = new Date();
     private String LastPlay = lastplay.toString();
-   
+    private boolean finishedTurn ;
+    private boolean finishedDraw ;
+    private int idxRemovedCard;
     public Player(){
         
     }
     
     public Player(String playerName){
     	Name = playerName;
+        finishedTurn = false;
+        finishedDraw = false;
+        Status = "Enable";
+        idxRemovedCard = -1;
     }
     
     public void setStatus(String S)
     {
         Status = S;
+    }
+    
+    public void showStatus(){
+        if(Role.getID()==1)
+            System.out.println("Anda adalah seorang GoldMiner");
+        else
+            System.out.println("Anda adalah seorang Saboteur");
+        if(finishedTurn)
+            System.out.println("Anda belum mendraw kartu");
+        else
+            System.out.println("Anda belum menggunakan satu kartu pun");
     }
     
     public void setTurn(int t){
@@ -31,6 +48,21 @@ public class Player {
     
     public int getTurn(){
         return Turn;
+    }
+    
+    public boolean getFinishedTurn(){
+        return finishedTurn;
+    }
+        
+    public void setFinishedTurn(boolean myBool){
+        finishedTurn = myBool;
+    }
+    public boolean getFinishedDraw(){
+        return finishedDraw;
+    }
+        
+    public void setFinishedDraw(boolean myBool){
+        finishedDraw = myBool;
     }
     
     public void setScore(int s){
@@ -63,10 +95,19 @@ public class Player {
     
     public void drawCard(Card c)
     {
-        CardsOnHand.add(c);
+        if(idxRemovedCard == -1)
+            CardsOnHand.add(c);
+        else{
+            CardsOnHand.add(idxRemovedCard, c);
+        }
+    }
+    
+    public void setIdxRemovedCard(int Idx){
+        idxRemovedCard = Idx;
     }
     
     public Card disCard(int index){
+        idxRemovedCard = index;
         return CardsOnHand.remove(index);
     }
     
@@ -80,11 +121,10 @@ public class Player {
 	String liner = "\u2595";
 	String lined = "\u2581";
 	String block = "\u2588";
-        
+        System.out.print("\n  ");
         for (int i=0; i<CardsOnHand.size(); i++){
-            System.out.print("      " + i);
+            System.out.print("   " + i + "    ");
         }
-        System.out.println();
         System.out.println();
         System.out.print("  ");
         for (int i=0; i<CardsOnHand.size(); i++){
