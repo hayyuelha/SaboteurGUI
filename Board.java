@@ -62,6 +62,7 @@ public class Board {
     private void printCard(Path_Card P){
         if (P.CompareCard(Path_Card.GoldCard)){System.out.println("GoldCard");}
         else if (P.CompareCard(Path_Card.RockCard)){System.out.println("RockCard");}
+        else{System.out.println("KampretCard");}
     }
     
     private Path_Card getCardLeftOf(Vector<Integer> Position){
@@ -131,6 +132,8 @@ public class Board {
                         valid = aboveIsValid && belowIsValid && rightIsValid;
                     } else if ((Path_Card.RockCard.CompareCard(CardAbove) || Path_Card.GoldCard.CompareCard(CardAbove)) && (Path_Card.RockCard.CompareCard(CardBelow) || Path_Card.GoldCard.CompareCard(CardBelow))){
                         valid = P.canBePlacedLeftOf(CardRight);
+                    } else if ((Position.get(1) == 2) && (CardLeft.CompareCard(Path_Card.NilCard))){
+                        valid = P.canBePlacedLeftOf(CardRight);
                     }
                 } else {
                     if (! Path_Card.NilCard.CompareCard(CardAbove)) {
@@ -172,7 +175,7 @@ public class Board {
             MatrixOfCard[Position.get(0)][Position.get(1)] = P;
             return 0;
         }else{
-            System.out.println("Koordinat tidak valid");
+            System.out.println("Koordinat tidak valid ");
             return -1;
         }
     }
