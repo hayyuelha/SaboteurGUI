@@ -1,16 +1,15 @@
-import java.util.Date;
+
 import java.util.Vector;
 
 
 public class Player {
     private Character_Card Role;
     private String Status = new String("Undefined");
-    private Vector<Card> CardsOnHand = new Vector();;
+    private Vector<Card> CardsOnHand = new Vector<Card>();;
     private int Turn;
     private int Score;
     private String Name = new String("Undefined");
-    private Date lastplay = new Date();
-    private String LastPlay = lastplay.toString();
+    private String RegisteredDate = new String();
     private boolean finishedTurn ;
     private boolean finishedDraw ;
     private int idxRemovedCard;
@@ -22,9 +21,15 @@ public class Player {
     	Name = playerName;
         finishedTurn = false;
         finishedDraw = false;
+        Score = 0;
         Status = "Enable";
         idxRemovedCard = -1;
     }
+    
+    public int getScore(){
+    	return Score;
+    }
+    
     
     public void setStatus(String S)
     {
@@ -32,6 +37,7 @@ public class Player {
     }
     
     public void showStatus(){
+    	System.out.println("Hai, "+Name);
         if(Role.getID()==1)
             System.out.println("Anda adalah seorang GoldMiner");
         else
@@ -70,7 +76,11 @@ public class Player {
     }
     
     public void setDate(String d){
-        LastPlay = d;        
+    	RegisteredDate = d;        
+    }
+    
+    public String getDate(){
+        return RegisteredDate.toString();        
     }
     
     public String getPlayerName(){
@@ -87,10 +97,6 @@ public class Player {
     
     public int getRoleId(){
     	return Role.getID();
-    }
-    
-    public String getLastPlay(){
-        return LastPlay;
     }
     
     public void drawCard(Card c)

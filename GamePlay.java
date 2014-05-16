@@ -1,7 +1,11 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
@@ -9,48 +13,71 @@ import java.util.Vector;
 
 
 public class GamePlay {
-	public Vector<Player> ListOfPlayer = new Vector();
+	public Vector<Player> ListOfPlayer = new Vector<Player>();
+	public Vector<Player> ListOfRegisteredPlayer = new Vector<Player>();
 	private static Scanner scan = new Scanner(System.in);
 	Deck aDeck = new Deck();
-        Board board = new Board();
-        Deck rubbish = new Deck();
-        Player currentPlayer = new Player();
-//        public void loadFromExFile (FileReader fin) throws IOException{
-//            BufferedReader br = new BufferedReader(fin);
-//            String name;
-//            int s;
-//            String LastPlay;
-//            Player p;
-//            while (br.ready()){
-//                name = br.readLine();
-//                p = new Player(name);
-//                s = br.read();
-//                p.setScore(s);
-//                LastPlay = br.readLine();
-//                p.setDate(LastPlay);
-//                ListOfPlayer.addElement(p);
-//            }
-//            p = ListOfPlayer.get(0);
-//            name = p.getPlayerName();
-//            System.out.println(name);
-//            LastPlay = p.getLastPlay();
-//            System.out.println(LastPlay);
-//        }
-//	
+    Board board = new Board();
+    Player currentPlayer = new Player();
+    
+    public GamePlay(){
+    	try{
+    		loadFromFile("Player.in");
+    	}catch(Exception e){
+    		System.out.println("sapi");
+    		try {
+				PrintWriter writer = new PrintWriter("Player.in", "UTF-8");
+				writer.close();
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+    	}
+    	
+    }
+    
+    public void loadFromFile (String fileName) throws IOException{
+    	BufferedReader reader = new BufferedReader(new FileReader(fileName));
+    	String line = null;
+    	while ((line = reader.readLine()) != null) {
+    		String[] parts = line.split(";");
+    		Player player = new Player(parts[0]);
+    		player.setDate(parts[2]);
+    		player.setScore(Integer.parseInt(parts[1]));
+    		ListOfRegisteredPlayer.add(player);
+    	}
+    }
+	
+    public void addPlayerToFile(Player myPlayer){
+    	FileWriter fileWritter;
+		try {
+			fileWritter = new FileWriter("Player.in",true);
+			BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+			bufferWritter.write(myPlayer.getPlayerName()+";"+myPlayer.getScore()+";"+myPlayer.getDate()+"\n");
+			bufferWritter.flush();
+			bufferWritter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
 	public void addPlayer() {
 		System.out.print("Enter your name : ");
 		String whiteSpace = scan.nextLine();
 		String playerName = scan.nextLine();
 		Player myPlayer = new Player(playerName);
-		if(IsNotRegistered(playerName))
-			ListOfPlayer.add(myPlayer);
-		else
+		myPlayer.setDate(new Date().toString());
+		if(IsNotRegistered(playerName)){
+			ListOfRegisteredPlayer.add(myPlayer);
+			addPlayerToFile(myPlayer);
+		}else
 			printMessage("Sorry your name already registered!");
 	}
 	
 	public boolean IsNotRegistered(String Name){
-		for (int i = 0 ; i <ListOfPlayer.size() ; i++)
-			if(Name.compareTo(ListOfPlayer.elementAt(i).getPlayerName()) == 0)
+		for (int i = 0 ; i <ListOfRegisteredPlayer.size() ; i++)
+			if(Name.compareTo(ListOfRegisteredPlayer.elementAt(i).getPlayerName()) == 0)
 				return false;
 		return true;
 	}
@@ -62,10 +89,13 @@ public class GamePlay {
 	public void showMenuCMD(){
 		clearScreen();
 		System.out.println("==== Menu Utama ====");
-		System.out.println("1. Play"+
-				"\n2. AddPlayer"+
-				"\n3. Show Registered Player"+
-				"\n4. Exit");
+		System.out.println(
+				"1. Start"+
+				"\n2. Highscores"+
+				"\n3. Setting"+
+				"\n4. Help"+
+				"\n5. About"+
+				"\n6. Exit");
 		System.out.print("Input your index menu : ");
 	}
 	public void backToPrevMenu(){
@@ -74,10 +104,13 @@ public class GamePlay {
 		whiteSpace = scan.nextLine();
 	}
 	private void showRegisteredPlayer(){
-		System.out.println("\nNumber of registered player is "+ ListOfPlayer.size() );
-		for(int i = 0 ; i < ListOfPlayer.size() ; i++)
-			System.out.println((i+1)+". "+ListOfPlayer.elementAt(i).getPlayerName());
-		backToPrevMenu();
+		System.out.println("Number of registered player is "+ ListOfRegisteredPlayer.size() );
+		for(int i = 0 ; i < ListOfRegisteredPlayer.size() ; i++){
+			Player p = new Player();
+			p = ListOfRegisteredPlayer.elementAt(i);
+			System.out.println((i+1)+". "+p.getPlayerName()
+					+"  ["+p.getScore()+"]   <"+p.getDate()+">");
+		}
 	}
 	private void setRoleAndTurnForPlayer(){
 		Vector<Integer> myIdCharacter = new Vector();
@@ -96,19 +129,15 @@ public class GamePlay {
 	}
 	
 	private void play(){
-		if(ListOfPlayer.size()>=3){
-			setRoleAndTurnForPlayer();
-			//printRolePlayers();
-                        aDeck.fillDeck();
-                        for(Player p : ListOfPlayer){
-                            for (int i=0;i<5;i++){
-                                p.drawCard(aDeck.popCard());
-                            }
-                        }
-                        gameLoop();
-		}else
-			printMessage("Sorry, please complete the requirement first!"+
-					"\nminimal player is three player");
+		setRoleAndTurnForPlayer();
+		//printRolePlayers();
+        aDeck.fillDeck();
+        for(Player p : ListOfPlayer){
+            for (int i=0;i<5;i++){
+                p.drawCard(aDeck.popCard());
+            }
+        }
+        gameLoop();
 	}
         
         private void showMenuGame(){
@@ -156,14 +185,13 @@ public class GamePlay {
                              backToPrevMenu();
                              break;
                     case 5 : int IdxPrevPlayer = currentPlayer.getTurn();
-                             setNextPlayer();
+                             setNextPlayer(); 
                              changeTurn(IdxPrevPlayer);
                              ListOfPlayer.removeElementAt(IdxPrevPlayer);
                              break;
                     default :printMessage("default : input is  not valid!");
                 }
-                finish = (board.isFinished() || ListOfPlayer.size()<3);
-               // printMessage(currentPlayer.getFinishedDraw()+" bbb is  not valid!");
+                finish = (board.isFinished() || ListOfPlayer.size() < 3);
                 if(currentPlayer.getFinishedDraw() && menu!=5)
                     setNextPlayer();
             }
@@ -172,7 +200,6 @@ public class GamePlay {
         
         private void changeTurn(int idx)
         {
-            ListOfPlayer.clear();
             for (int i = idx+1 ; i < ListOfPlayer.size() ; i++){
                 ListOfPlayer.get(i).setTurn(i-1);
             }
@@ -319,29 +346,116 @@ public class GamePlay {
 	
 	private void runMenu(int indexMenu){
 		switch(indexMenu){
-			case 1 : play(); break;
-			case 2 : addPlayer(); break;
-			case 3 : showRegisteredPlayer(); break;
-			case 4 : //exit; 
+			case 1 : preparationPlay(); break;
+			case 2 : highScores(); break;
+			case 3 : setting(); break;
+			case 4 : help(); break;
+			case 5 : about(); break;
+			case 6 : //exit; 
 				break;
 			default: printMessage("Sorry, your input is invalid!");
 		}
 	}
 	
+	public void preparationPlay(){
+		boolean readyToPlay = false;
+		int menu = 0;
+		while(!readyToPlay && menu != 5){
+			System.out.print("\n\n1. Show registered player"+
+					"\n2. Add player"+
+					"\n3. Choose player"+
+					"\n4. Play"+
+					"\n5. Back"
+					+ "\nInput your index menu : ");
+			menu = scan.nextInt();
+			switch(menu){
+				case 1 : System.out.println("\n");
+						 showRegisteredPlayer(); 
+						 backToPrevMenu();break;
+				case 2 : addPlayer(); break;
+				case 3 : choosePlayer(); break;
+				case 4 :
+						 if(ListOfPlayer.size()>=3){
+							readyToPlay = true;
+							play();
+						 }else{
+							 printMessage("Sorry, please choose again!"+
+										"\nminimum player is three player");
+							 ListOfPlayer.clear();
+						 }
+			}
+		}
+		ListOfPlayer.clear();
+	}
+		
+	
+	public void choosePlayer(){
+		System.out.println("\nMasukkan indexs pemain yang akan bermain (minimal 3)!");
+		showRegisteredPlayer();
+		System.out.print("Indeks pemain dipisahkan spasi : ");
+		String line = scan.nextLine();
+		line = scan.nextLine();
+		String idx[] = line.split(" ");
+		for(String i : idx){
+			ListOfPlayer.add(ListOfRegisteredPlayer.elementAt(Integer.parseInt(i)-1));
+		}
+	}
+	
+	public void highScores(){
+		for(int i = 0 ; i < ListOfRegisteredPlayer.size()-1 ; i++){
+			Player p1 = ListOfRegisteredPlayer.elementAt(i);
+			for(int j = i+1 ; j <ListOfRegisteredPlayer.size() ; j++){
+				Player p2 = ListOfRegisteredPlayer.elementAt(j);
+				if(p1.getScore() < p2.getScore()){
+					ListOfRegisteredPlayer.removeElementAt(i);
+					ListOfRegisteredPlayer.add(i,p2);
+					ListOfRegisteredPlayer.removeElementAt(j);
+					ListOfRegisteredPlayer.add(j,p1);
+				}
+			}
+		}
+		if(ListOfRegisteredPlayer.size() > 10 ){
+			for(int i = 0 ; i < 10 ; i++){
+				Player p = new Player();
+				p = ListOfRegisteredPlayer.elementAt(i);
+				System.out.println((i+1)+". "+p.getPlayerName()
+						+"  ["+p.getScore()+"]   <"+p.getDate()+">");
+			}
+		}else{
+			for(int i = 0 ; i < ListOfRegisteredPlayer.size() ; i++){
+				Player p = new Player();
+				p = ListOfRegisteredPlayer.elementAt(i);
+				System.out.println((i+1)+". "+p.getPlayerName()
+						+"  ["+p.getScore()+"]   <"+p.getDate()+">");
+			}
+		}
+		backToPrevMenu();
+	}
+
+	public void help(){
+		printMessage("Jika anda kebingungan silahkan hubungi 089619177393 [Daniar]");
+	}
+	public void about(){
+		printMessage("Game ini di kerjakan oleh : Daniar, Hayyu, Icha, Khaidzir, dan Ramandika");
+	}
+	public void setting(){
+		
+	}
+	
 	public void start() throws FileNotFoundException, IOException{
-		FileReader fr = new FileReader("player.in");
+		//FileReader fr = new FileReader("player.in");
 //                loadFromExFile (fr);
                 //addPlayer
 		int indexMenu = 0;
-		while(indexMenu!= 4){
+		while(indexMenu!= 6){
 			showMenuCMD();
-                        try {
-                            indexMenu = scan.nextInt();
-                            runMenu(indexMenu);
-                        }catch(Exception e){
-                            printMessage("Sorry, your input is invalid!");
-                        }
+                try {
+                    indexMenu = scan.nextInt();
+                    runMenu(indexMenu);
+                }catch(Exception e){
+                    printMessage("Sorry, your input in main menu is invalid!");
                 }
+            }
 		System.out.print("==== Game closed ====");
 	}
 }
