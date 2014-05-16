@@ -47,7 +47,7 @@ public class Deck {
         PileOfCard.addElement(new Path_Card('0', '0', '1', '1', '0', 10));
         PileOfCard.addElement(new Path_Card('1', '1', '1', '0', '0', 15));
         PileOfCard.addElement(new Path_Card('0', '0', '0', '1', '1', 8));
-        PileOfCard.addElement(new Path_Card('0', '0', '1', '1', '0', 14));
+        PileOfCard.addElement(new Path_Card('0', '1', '1', '1', '0', 14));
         PileOfCard.addElement(new Path_Card('1', '1', '1', '1', '0', 16));
         PileOfCard.addElement(new Path_Card('0', '1', '0', '1', '0', 13));
         PileOfCard.addElement(new Path_Card('0', '1', '1', '0', '0', 12));
