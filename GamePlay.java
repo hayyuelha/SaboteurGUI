@@ -90,7 +90,7 @@ public class GamePlay {
 		clearScreen();
 		System.out.println("==== Menu Utama ====");
 		System.out.println(
-				"1. Play"+
+				"1. Start"+
 				"\n2. Highscores"+
 				"\n3. Setting"+
 				"\n4. Help"+
@@ -104,14 +104,13 @@ public class GamePlay {
 		whiteSpace = scan.nextLine();
 	}
 	private void showRegisteredPlayer(){
-		System.out.println("\nNumber of registered player is "+ ListOfRegisteredPlayer.size() );
+		System.out.println("Number of registered player is "+ ListOfRegisteredPlayer.size() );
 		for(int i = 0 ; i < ListOfRegisteredPlayer.size() ; i++){
 			Player p = new Player();
 			p = ListOfRegisteredPlayer.elementAt(i);
 			System.out.println((i+1)+". "+p.getPlayerName()
 					+"  ["+p.getScore()+"]   <"+p.getDate()+">");
 		}
-		backToPrevMenu();
 	}
 	private void setRoleAndTurnForPlayer(){
 		Vector<Integer> myIdCharacter = new Vector();
@@ -186,14 +185,13 @@ public class GamePlay {
                              backToPrevMenu();
                              break;
                     case 5 : int IdxPrevPlayer = currentPlayer.getTurn();
-                             setNextPlayer();
+                             setNextPlayer(); 
                              changeTurn(IdxPrevPlayer);
                              ListOfPlayer.removeElementAt(IdxPrevPlayer);
                              break;
                     default :printMessage("default : input is  not valid!");
                 }
-                finish = (board.isFinished() || ListOfPlayer.size()<3);
-               // printMessage(currentPlayer.getFinishedDraw()+" bbb is  not valid!");
+                finish = (board.isFinished() || ListOfPlayer.size() < 3);
                 if(currentPlayer.getFinishedDraw() && menu!=5)
                     setNextPlayer();
             }
@@ -202,7 +200,6 @@ public class GamePlay {
         
         private void changeTurn(int idx)
         {
-            ListOfPlayer.clear();
             for (int i = idx+1 ; i < ListOfPlayer.size() ; i++){
                 ListOfPlayer.get(i).setTurn(i-1);
             }
@@ -372,10 +369,13 @@ public class GamePlay {
 					+ "\nInput your index menu : ");
 			menu = scan.nextInt();
 			switch(menu){
-				case 1 : showRegisteredPlayer(); break;
+				case 1 : System.out.println("\n");
+						 showRegisteredPlayer(); 
+						 backToPrevMenu();break;
 				case 2 : addPlayer(); break;
 				case 3 : choosePlayer(); break;
-				case 4 : if(ListOfPlayer.size()>=3){
+				case 4 :
+						 if(ListOfPlayer.size()>=3){
 							readyToPlay = true;
 							play();
 						 }else{
@@ -384,16 +384,17 @@ public class GamePlay {
 							 ListOfPlayer.clear();
 						 }
 			}
-			ListOfPlayer.clear();
 		}
+		ListOfPlayer.clear();
 	}
 		
 	
 	public void choosePlayer(){
-		System.out.println("Masukkan indexs pemain yang akan bermain (minimal 3)!");
+		System.out.println("\nMasukkan indexs pemain yang akan bermain (minimal 3)!");
 		showRegisteredPlayer();
 		System.out.print("Indeks pemain dipisahkan spasi : ");
 		String line = scan.nextLine();
+		line = scan.nextLine();
 		String idx[] = line.split(" ");
 		for(String i : idx){
 			ListOfPlayer.add(ListOfRegisteredPlayer.elementAt(Integer.parseInt(i)-1));

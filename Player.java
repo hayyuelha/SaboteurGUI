@@ -37,6 +37,7 @@ public class Player {
     }
     
     public void showStatus(){
+    	System.out.println("Hai, "+Name);
         if(Role.getID()==1)
             System.out.println("Anda adalah seorang GoldMiner");
         else
