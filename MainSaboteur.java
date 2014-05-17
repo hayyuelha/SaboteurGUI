@@ -1,4 +1,5 @@
 
+import java.awt.CardLayout;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -12,7 +13,10 @@ import java.io.InputStream;
 
 public class MainSaboteur {
     public static void main(String[] args) throws FileNotFoundException, IOException {
-       GamePlay Game = new GamePlay();
-       Game.start();
+       GameFrame gameFrame = new GameFrame();
+      // CardLayout c = (CardLayout)gameFrame.basePanel.getLayout();
+      // c.show(gameFrame.basePanel, "GAMEPLAY");
+       //GamePlay Game = new GamePlay();
+      // Game.start();
     }
 }
