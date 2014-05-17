@@ -13,7 +13,7 @@ import java.util.Vector;
  * @author icha
  */
 public class Board {
-    private Path_Card[][] MatrixOfCard;     // Papan permainan
+    public Path_Card[][] MatrixOfCard;     // Papan permainan
     private boolean[] GoalCondition;        // True jika GoalCard dalam keadaan tertutup
     
     public Board(){
