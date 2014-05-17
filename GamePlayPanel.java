@@ -38,12 +38,39 @@ public class GamePlayPanel extends ImagePanel {
     private GridBagConstraints c = new GridBagConstraints();
     private JTextArea statusList;
     private JTextArea messageBox;
-    public JButton giveUpButton, drawButton, rotateButton, finishTurnButton;
+
+    /**
+     * JButton untuk keluar dari permainan
+     */
+    public JButton giveUpButton,
+
+    /**
+     * JButton untuk mengambil kartu dari deck
+     */
+    drawButton,
+
+    /**
+     * JButton untuk memutar kartu
+     */
+    rotateButton,
+
+    /**
+     * JButton untuk menyelesaikan turn
+     */
+    finishTurnButton;
     private int koorX, koorY;
     String tempPath = new String("img/fieldCard/forbiddenCard.png");
     private int  handIndex;
     GamePlay gamePlay = new GamePlay();
+
+    /**
+     * ImagePanel untuk menampilkan kartu-kartu yang telah dibuang
+     */
     public ImagePanel garbage;
+
+    /**
+     * Default constructor untuk kelas GamePlayPanel; menginisialisasi semua atribut
+     */
     public GamePlayPanel() {
         super("img/backgroundBoard.jpg");
         setLayout(new GridBagLayout());
@@ -174,6 +201,10 @@ public class GamePlayPanel extends ImagePanel {
         setVisible(true);
     }
     
+    /**
+     * Mengatur tampilan pada kartu di tangan 
+     * @param crd kartu yang akan ditampilkan
+     */
     public void setCardOnHand(Card crd){
         int idx = gamePlay.currentPlayer.CardsOnHand.size()-1;
         int Id = crd.getID();
@@ -200,9 +231,12 @@ public class GamePlayPanel extends ImagePanel {
         
         
     }
-    
-    
-     public void geserKartu(int Idx){
+
+    /**
+     * Method untuk mngurangi kartu yang sebelumnya 5 menjadi 4 
+     * @param Idx indeks kartu yang dihilangkan dari tangan
+     */
+    public void geserKartu(int Idx){
         System.out.println("mmm " + Idx);
         gamePlay.currentPlayer.CardsOnHand.removeElementAt(handIndex);
         gamePlay.currentPlayer.setFinishedTurn(true);
@@ -237,7 +271,12 @@ public class GamePlayPanel extends ImagePanel {
     
     
     // semua berawal dari sini
-    public void setGamePlay(GamePlay game){
+
+    /**
+     * Method untuk mengisi message/keterangan tentang pemain
+     * @param game GamePlay
+     */
+        public void setGamePlay(GamePlay game){
         gamePlay = game;
         String Status = new String();
         Status+=("No  nama\n");
@@ -283,17 +322,31 @@ public class GamePlayPanel extends ImagePanel {
        c.insets = new Insets(0, 0, 0, 0);
     }
     
+    /**
+     * Kelas turunan JPanel yang menampung kartu-kartu di tangan 
+     */
     public class handCardGroup extends JPanel {
+
+        /**
+         * 
+         */
         public handCard[] handCardPanel;
         //private int click;
 //1=Path_Card, 2=Action_Card, 3=Character_Card
 //1=ViewMap 2=break 3=repair
 //1=GoldMiner 2=Saboteur
-        public handCardGroup() {
+
+        /**
+         * Default constructor handCardGroup 
+         */
+                public handCardGroup() {
             
             
         }
         
+        /**
+         * Method untuk memperbarui kartu di tangan
+         */
         public void updateCardOnHand(){
             removeAll();
             ResetConstraints();
@@ -401,9 +454,19 @@ public class GamePlayPanel extends ImagePanel {
 
     }
     
+    /**
+     * Kelas turunan JPanel untuk menampung board
+     */
     public class fieldCardGroup extends JPanel {
+
+        /**
+         * Array of fieldCard sebagai representasi board
+         */
         public fieldCard[][] fCard = new fieldCard[5][9];
         
+        /**
+         * Default constructor kelas fieldCardGroup; Mengisi fCard dengan gambar
+         */
         public fieldCardGroup() {
             setLayout(new GridBagLayout());
             ResetConstraints();
@@ -426,12 +489,30 @@ public class GamePlayPanel extends ImagePanel {
             fCard[2][8].repaint();
         }
         
+        /**
+         * kelas turunan ImagePanel untuk menampung kartu
+         */
         public class fieldCard extends ImagePanel {
-            public BufferedImage cardEmpty, cardSelect;
+
+            /**
+             * BufferedImage untuk menampung kartu kosong
+             */
+            public BufferedImage cardEmpty,
+
+            /**
+             * BufferedImage untuk menampung kartu yang dipilih
+             */
+            cardSelect;
             private int[] ID = new int[2];
             private boolean filled;
-            
-           
+
+            /**
+             * Konstruktor berparameter kelas fieldCard
+             * @param empty String untuk menampung path gambar kartu kosong
+             * @param select String untuk menampung path gambar kartu yang dipilih
+             * @param x absis
+             * @param y ordinat
+             */
             public fieldCard(String empty, String select, int x, int y) {
                 super(empty);
                 try {

@@ -17,8 +17,16 @@ import javax.swing.JPanel;
  * @author user
  */
 public class ImagePanel extends JPanel {
+
+    /**
+     * BufferedImage untuk menampung image
+     */
     public BufferedImage image;
     
+    /**
+     * Konstruktor berparameter kelas ImagePanel; Set layout sesuai dengan ukuran
+     * @param path String berisi path file image
+     */
     public ImagePanel(String path) {
         //setLayout(new FlowLayout());
         try{
