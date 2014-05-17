@@ -5,7 +5,7 @@ import java.util.Vector;
 public class Player {
     private Character_Card Role;
     private String Status = new String("Undefined");
-    private Vector<Card> CardsOnHand = new Vector<Card>();;
+    public  Vector<Card> CardsOnHand = new Vector<Card>();
     private int Turn;
     private int Score;
     private String Name = new String("Undefined");
@@ -37,7 +37,7 @@ public class Player {
     }
     
     public void showStatus(){
-    	System.out.println("Hai, "+Name);
+        System.out.println("Hai, "+Name);
         if(Role.getID()==1)
             System.out.println("Anda adalah seorang GoldMiner");
         else
@@ -47,6 +47,7 @@ public class Player {
         else
             System.out.println("Anda belum menggunakan satu kartu pun");
     }
+    
     
     public void setTurn(int t){
         Turn = t;
